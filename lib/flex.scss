@@ -1,0 +1,126 @@
+/*
+ *  uni-app flex 布局盒子
+*/
+
+/* 分列式弹性盒子，以X轴从左到右排列 */
+.h-flex-x{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: center;
+	
+	/* 水平左对齐 */
+	&.h-flex-left{
+		justify-content: flex-start;
+	}
+	
+	/* 水平居中对齐 */
+	&.h-flex-center{
+		justify-content: center;
+	}
+	
+	/* 水平右对齐 */
+	&.h-flex-right{
+		justify-content: flex-end;
+	}
+	
+	/* 水平两端对齐 */
+	&.h-flex-space{
+		justify-content: space-between;
+	}
+	
+	/* 垂直顶部对齐 */
+	&.h-flex-top{
+		align-items: flex-start;
+		align-content: flex-start;
+	}
+	
+	/* 垂直底部对齐 */
+	&.h-flex-bottom{
+		align-items: flex-end;
+		align-content: flex-end;
+	}
+	
+	/* 允许换行 */
+	&.h-flex-wrap{
+		flex-wrap: wrap;
+	}
+	
+	/* 等比分列，2-6列 */
+	@for $i from 2 through 6
+	{
+		&.h-flex-#{$i}{
+			&>view{
+				width:(100% / $i);
+			}
+		}
+	}
+	
+	/* 弹性元素 */
+	&>.h-flex-item-grow{
+		flex-grow: 1;
+		width:0;
+	}
+}
+
+/* 分行式弹性盒子，以Y轴从上到下排列 */
+.h-flex-y{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	align-content: flex-start;
+	
+	/* 垂直居中对齐 */
+	&.h-flex-center{
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+	}
+	
+	/* 水平左对齐 */
+	&.h-flex-left{
+		align-items: flex-start;
+		align-content: flex-start;
+	}
+	
+	/* 水平右对齐 */
+	&.h-flex-right{
+		align-items: flex-end;
+		align-content: flex-end;
+	}
+	
+	/* 垂直两端对齐 */
+	&.h-flex-space{
+		justify-content: space-between;
+	}
+	
+	/* 垂直顶部对齐 */
+	&.h-flex-top{
+		justify-content: flex-start;
+	}
+	
+	/* 垂直底部对齐 */
+	&.h-flex-bottom{
+		justify-content: flex-end;
+	}
+	
+	/* 等比分行，2-6行 */
+	@for $i from 2 through 6
+	{
+		&.h-flex-#{$i}{
+			&>view{
+				height:(100% / $i);
+			}
+		}
+	}
+	
+	/* 弹性元素 */
+	&>.h-flex-item-grow{
+		flex-grow: 1;
+		height: 0;
+	}
+}

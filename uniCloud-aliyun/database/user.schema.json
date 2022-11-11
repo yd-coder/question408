@@ -1,0 +1,55 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"nickName": {
+			"bsonType": "string",
+			"label": "昵称",
+			"description": "用户昵称，登录获取的"
+		},
+		"avatarUrl": {
+			"bsonType": "string",
+			"label": "头像",
+			"description": "用户头像图片的 URL，登录获取的"
+		},
+		"openid": {
+			"bsonType": "string",
+			"description": "微信小程序平台openid"
+		},
+		"questionList": {
+			"bsonType": "array",
+			"arrayType": "string",
+			"description": "已刷题id集合，用于排名"
+		},
+		"count": {
+			"bsonType": "int",
+			"description": "刷题数，用于排名"
+		},
+		"favorite": {
+			"bsonType": "array",
+			"arrayType": "object",
+			"description": "用户收藏题目"
+		},
+		"register_date": {
+			"bsonType": "timestamp",
+			"description": "注册时间",
+			"forceDefaultValue": {
+				"$env": "now"
+			}
+		},
+		"admin": {
+			"bsonType": "bool",
+			"label": "管理员权限",
+			"description": "用户管理员权限"
+		}
+	}
+}

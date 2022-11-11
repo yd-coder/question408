@@ -65,58 +65,72 @@
 			    default () {
 			      return []
 			    }
+			},
+			openid: {
+				type: String,
+				default: ''
 			}
 		},
 		methods: {
 			// 创建订单
 			creatOrder(item) {
+				if(!uni.getStorageSync('userInfo')){
+					return	uni.navigateTo({
+						url: '/pages/login/login'
+					});
+				}
 				// 将时间戳转化成date对象
 				const date = new Date(+new Date);
-				wx.cloud.database().collection('order').add({
-					data: {
+				const openid = JSON.parse(uni.getStorageSync('userInfo')).openid
+				uniCloud.database().collection('order').add({
+						_openid: openid,
 						creatTime: formatDate(date,'yyyy-MM-dd hh:mm:ss'), // 将date进行格式化
-						time: wx.cloud.database().serverDate(),
+						time: +new Date,
 						name: item.name,
 						image: item.image,
 						totalFee: item.price,
 						status: 0	//0未支付1已支付
-					}
 				}).then(res=>{
 				    uni.showToast({
 				    	icon:'success',
 				    	title:'订单创建成功'
 				    })
-					this.goPay(item,res._id)
+					this.goPay(item, res.result.id, openid)
 				})
 			},
 			// 发起支付
-			goPay(item,id) {
-				wx.cloud.callFunction({
-				  name: 'pay',
-				  data: {
-					outTradeNo: id,
-					goodName:item.name,
-				    totalFee:item.price,
-				  },
-				  success: res => {
-				    const payment = res.result.payment
-				    wx.requestPayment({
-				      ...payment,
-				      success (res) {
-						wx.cloud.callFunction({
-							name: 'goodCount',
-							data: {
-								goodName:item.name,
-								count:item.count
-							}
-						})
-				        console.log('pay success', res)
-				      },
-				      fail (err) {
-				        console.error('pay fail', err)
-				      }
-				    })
-				  }
+			goPay(item, id, openid) {
+				uniCloud.callFunction({
+				    name: 'pay',
+				    data: { // 传递订单的一些基本信息
+						openid: openid,
+						goodName: item.name,
+						outTradeNo: id, // 订单号
+						totalFee: item.price // 单位元
+					}
+				}).then(res => {
+				    uni.requestPayment({ // 调用支付api
+						provider: 'weixin',
+						...res.result.orderInfo,  
+						success: res => {
+							console.log('pay success', res)
+							// 更改订单状态为1
+							uniCloud.database().collection('order').doc(id).update({
+							      status: 1
+							})
+							// 更改商品销量+1
+							uniCloud.callFunction({
+							    name: 'goodCount',
+							    data: { // 传递订单的一些基本信息
+									goodName: item.name,
+									count: item.count
+								}
+							})
+						},
+						fail (res) {
+							console.error('pay fail', err)
+						}
+					})
 				})
 			}	
 		}

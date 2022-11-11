@@ -113,7 +113,6 @@
 
 <script>
 	import uniIcons  from '@/components/uni-icons/uni-icons';
-	import getDataList from './optimized-swiper-data.js'
 	export default {
 		components: {uniIcons},
 		data() {
@@ -165,12 +164,12 @@
 				return ''
 			}
 		},
-		onLoad(){
+		onLoad(option){
 			// getDataList.getDataList().then(res=>{
 			// 	this.dataList = res;
 			// 	this.renderSwiper(0);
 			// })
-				uniCloud.database().collection('question-2013').get().then(res => {
+				uniCloud.database().collection(option.url).get().then(res => {
 					this.dataList = res.result.data 
 					this.renderSwiper(0);
 				})
@@ -276,10 +275,10 @@
 				// console.log(this.dataList[this.topicIndex])
 				
 				// 答题完成后自动进入下一题
-				this.autoNextTopicTime = setTimeout(()=>{
-					let pickerIndex = this.topicIndex+1;
-					this.pickerTopic(pickerIndex);
-				},2000);
+				// this.autoNextTopicTime = setTimeout(()=>{
+				// 	let pickerIndex = this.topicIndex+1;
+				// 	this.pickerTopic(pickerIndex);
+				// },2000);
 			},
 			// 清除自动跳到下一页延时器
 			clearAutoNextTopicTime(){

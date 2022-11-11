@@ -1,32 +1,79 @@
 {
-	"pages": [
-		{
-		    "path" : "pages/home/home",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-		        "enablePullDownRefresh": false
-		    }
-		    
+	"pages": [{
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-		    "path" : "pages/index/index",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "基础练习",
-		        "enablePullDownRefresh": false
-		    }
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "真题强化",
+				"enablePullDownRefresh": false
+			}
 		},
 		{
-		    "path" : "pages/order/order",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "我的订单",
-		        "enablePullDownRefresh": false
-		    }
+			"path": "pages/order/order",
+			"style": {
+				"navigationBarTitleText": "我的订单",
+				"enablePullDownRefresh": false
+			}
 		}
-        
-    ],
+
+		, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "快速登录",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/base/base",
+			"style": {
+				"navigationBarTitleText": "基础练习",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/rank/rank",
+			"style": {
+				"navigationBarTitleText": "个人排行",
+				"enablePullDownRefresh": false
+			}
+
+		}, 
+		{
+			"path": "pages/base/question",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		
+		}, 
+		{
+			"path": "pages/question-2013/add",
+			"style": {
+				"navigationBarTitleText": "题目新增"
+			}
+		}, {
+			"path": "pages/question-2013/edit",
+			"style": {
+				"navigationBarTitleText": "题目编辑"
+			}
+		}, {
+			"path": "pages/question-2013/list",
+			"style": {
+				"navigationBarTitleText": "题目列表"
+			}
+		}, {
+			"path": "pages/question-2013/detail",
+			"style": {
+				"navigationBarTitleText": "题目详情"
+			}
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "考研408刷题",

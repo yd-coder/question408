@@ -9,17 +9,17 @@
 		<!-- 功能列表 -->
 		<view class="functionList">
 			<view class="list-item" @click="goOrder"><image src="../../static/img/functionList/order.png"></image><text>我的订单</text></view>
-			<view class="list-item" @click="more"><image src="../../static/img/functionList/question.png"></image><text>我的错题</text></view>
-			<view class="list-item" @click="more"><image src="../../static/img/functionList/ranking.png"></image><text>个人排行</text></view>
-			<view class="list-item" @click="more"><image src="../../static/img/functionList/more.png"></image><text>更多功能</text></view>
+			<view class="list-item" @click="more"><image src="../../static/img/functionList/question.png"></image><text>我的收藏</text></view>
+			<view class="list-item" @click="goRank"><image src="../../static/img/functionList/ranking.png"></image><text>个人排行</text></view>
+			<view class="list-item" @click="goEdit"><image src="../../static/img/functionList/more.png"></image><text>更多功能</text></view>
 		</view>
 		<!-- 刷题分区 -->
 		<view class="questionList">
-			<view class="base" @click="goIndex"><text>基础练习</text></view>
-			<view class="true" @click="more"><text>真题强化</text></view>
+			<view class="base" @click="goBase"><text>基础练习</text></view>
+			<view class="true" @click="goIndex"><text>真题强化</text></view>
 		</view>
 		<!-- 商品列表 -->
-		<goods-list class="goodsList" :goodsList="goodsList"></goods-list>
+		<goods-list v-if="isShow" class="goodsList" :goodsList="goodsList" ></goods-list>
 	</view>
 </template>
 
@@ -29,33 +29,94 @@
 		data() {
 			return {
 				swiper:[],
-				goodsList: []
+				goodsList: [],
+				isShow: false
 			};
 		},
 		components: {
 			goodsList
 		},
 		onShow() {
-			wx.cloud.database().collection('swiper').get().then(res=>{
-			    this.swiper = res.data
+			uniCloud.database().collection('swiper').get().then(res=>{
+			    this.swiper = res.result.data
 			})
-			wx.cloud.database().collection('goods').get().then(res=>{
-			    this.goodsList = res.data
+			uniCloud.database().collection('goods').get().then(res=>{
+			    this.goodsList = res.result.data
 			})
+			// 判断设备，IOS限制虚拟支付
+			uni.getSystemInfo({
+				success: res => {
+					if(res.model.search('iPhone') === -1){
+						this.isShow = true
+					}
+				}
+			});
 		},
 		onShareAppMessage() {
 		    
 		},
 		methods: {
-			goIndex(){
-				uni.navigateTo({
-					url: '/pages/index/index'
-				});
+			goEdit() {
+				if(uni.getStorageSync('userInfo')){
+					const userInfo = uni.getStorageSync('userInfo')
+					uniCloud.database().collection('user').where({
+						openid: userInfo.openid
+					}).get().then(res => {
+						if(res.result.data[0].admin){
+							uni.navigateTo({
+								url: '/pages/question-2013/list'
+							});
+						}else{
+							this.more()
+						}
+					})
+				}else{
+					this.more()
+				}
+			},
+			goBase() {
+				if(uni.getStorageSync('userInfo')){
+					uni.navigateTo({
+						url: '/pages/base/base'
+					});
+				}else{
+					uni.navigateTo({
+						url: '/pages/login/login'
+					});
+				}
+			},
+			goIndex() {
+				if(uni.getStorageSync('userInfo')){
+					uni.navigateTo({
+						url: '/pages/index/index'
+					});
+				}else{
+					uni.navigateTo({
+						url: '/pages/login/login'
+					});
+				}
 			},
 			goOrder() {
-				uni.navigateTo({
-					url: '/pages/order/order'
-				});
+				if(uni.getStorageSync('userInfo')){
+					uni.navigateTo({
+						url: '/pages/order/order'
+					});
+				}else{
+					uni.navigateTo({
+						url: '/pages/login/login'
+					});
+				}
+			},
+			goRank() {
+				if(uni.getStorageSync('userInfo')){
+					uni.navigateTo({
+						url: '/pages/rank/rank'
+					});
+				}else{
+					uni.navigateTo({
+						url: '/pages/login/login'
+					});
+				}
 			},
 			more() {
 				uni.showToast({

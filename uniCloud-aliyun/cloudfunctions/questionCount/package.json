@@ -1,0 +1,7 @@
+{
+  "name": "questionCount",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

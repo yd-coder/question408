@@ -1,0 +1,60 @@
+{
+	"bsonType": "object",
+	"required": ["type", "title", "answer", "answerSheet", "answerDoubt"],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"type": {
+			"bsonType": "int",
+			"description": "题目类别：1 选择题 2 判断题",
+			"label": "题目类别",
+			"enum": [{
+				"text": "选择题",
+				"value": 1
+			}, {
+				"text": "判断题",
+				"value": 2
+			}],
+			"errorMessage": "{label}无效"
+		},
+		"title": {
+			"bsonType": "string",
+			"title": "题目",
+			"description": "题目",
+			"label": "题目",
+			"trim": "both"
+		},
+		"answer": {
+			"bsonType": "string",
+			"label": "答案",
+			"enum": [{
+				"text": "选择题A判断题对",
+				"value": "A"
+			}, {
+				"text": "选择题B判断题错",
+				"value": "B"
+			}, {
+				"text": "选择题C",
+				"value": "C"
+			}, {
+				"text": "选择题D",
+				"value": "D"
+			}],
+			"errorMessage": "{label}无效"
+		},
+		"answerDoubt": {
+			"bsonType": "string",
+			"title": "题目解析",
+			"description": "题目解析",
+			"label": "题目解析",
+			"trim": "right"
+		}
+	}
+}

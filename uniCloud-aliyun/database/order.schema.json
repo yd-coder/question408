@@ -1,0 +1,50 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read": true,
+		"create": true,
+		"update": true,
+		"delete": true
+	},
+	"properties": {
+		"_id": {
+			"description": "ID，系统自动生成"
+		},
+		"_openid": {
+			"bsonType": "string",
+			"label": "openid",
+			"description": "订单用户openid"
+		},
+		"creatTime": {
+			"bsonType": "string",
+			"label": "时间",
+			"description": "订单创建时间"
+		},
+		"time": {
+			"bsonType": "int",
+			"label": "时间",
+			"description": "订单排序的时间"
+		},
+		"name": {
+			"bsonType": "string",
+			"label": "名称",
+			"description": "订单商品名称"
+		},
+		"image": {
+			"bsonType": "string",
+			"label": "图片",
+			"description": "订单商品图片"
+		},
+		"totalFee": {
+			"bsonType": "double",
+			"label": "价格",
+			"description": "订单商品价格"
+		},
+		"status": {
+			"bsonType": "int",
+			"label": "订单状态",
+			"description": "订单支付状态"
+		}
+	}
+}

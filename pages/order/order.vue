@@ -55,6 +55,7 @@
 	export default {
 		data() {
 			return {
+				openid:'',
 				scrollLeft: 0,
 				isClickChange: false,
 				currentTab: 0,
@@ -120,11 +121,13 @@
 			}
 		},
 		onLoad() {
-			
+			this.openid = JSON.parse(uni.getStorageSync('userInfo')).openid
 		},
 		onShow() {
-			wx.cloud.database().collection('order').orderBy('time','desc').get().then(res=>{
-			    this.orderList = res.data
+			uniCloud.database().collection('order').where({				
+				_openid: this.openid
+			}).orderBy('time','desc').get().then(res=>{
+			    this.orderList = res.result.data
 			})
 		},
 		methods: {
@@ -135,14 +138,17 @@
 					this.currentTab = current;
 				}
 				if(current === 0){
-					wx.cloud.database().collection('order').orderBy('time','desc').get().then(res=>{
-					    this.orderList = res.data
+					uniCloud.database().collection('order').where({				
+						_openid: this.openid
+					}).orderBy('time','desc').get().then(res=>{
+					    this.orderList = res.result.data
 					})
 				}else{
-					wx.cloud.database().collection('order').orderBy('time','desc').where({
-						status: current-1
+					uniCloud.database().collection('order').orderBy('time','desc').where({
+						status: current-1,
+						_openid: this.openid
 					}).get().then(res=>{
-					    this.orderList = res.data
+					    this.orderList = res.result.data
 					})
 				}
 			},
@@ -163,7 +169,7 @@
 			},
 			// 删除订单
 			deleteOrder(id) {
-				wx.cloud.database().collection('order').doc(id).remove().then(res=>{
+				uniCloud.database().collection('order').doc(id).remove().then(res=>{
 				    uni.showToast({
 				    	icon:"success",
 						title: "删除成功"
@@ -204,7 +210,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 
 .aui-scrollView {
     width: 100%;

@@ -1,0 +1,7 @@
+{
+  "name": "goodCount",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

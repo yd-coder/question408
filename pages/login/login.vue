@@ -54,13 +54,15 @@
 			                    success: (res) => {
 			                        // console.log('云函数返回的值：：：：', res.result)
 			                        uni.hideLoading();
-			                        if (res.result.result.result._id) {
-			                            uni.setStorageSync('userInfo', JSON.stringify(res.result.result.result))
-			                        }
-									uni.navigateTo({
-										url: '/pages/home/home'
-									});
-			                    },
+			                        if (!res.result.result.result) {
+			                          uni.setStorageSync('userInfo', JSON.stringify(res.result.result))
+			                        }else{
+																uni.setStorageSync('userInfo', JSON.stringify(res.result.result.result))
+															}
+															uni.navigateTo({
+																url: '/pages/home/home'
+															});
+													},
 			                    fail: () => {
 			                        uni.hideLoading();
 			                        console.log('云函数调用失败')

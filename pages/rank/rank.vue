@@ -1,6 +1,14 @@
 <template>
 	<view class="bg">
 		<view class="container">
+			<u-empty
+				v-if="rankList.length===0"
+				iconSize=120
+				textSize=18
+				marginTop=150
+			    text="空空如也~"
+			>
+			</u-empty>
 			<view class="rank-item" v-for="(item,index) in rankList" :key="index">
 				<image class="item-rankimg" v-if="index === 0" src="../../static/img/ranking/one.png"></image>
 				<image class="item-rankimg" v-else-if="index === 1" src="../../static/img/ranking/two.png"></image>
@@ -34,7 +42,7 @@
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
 .bg {
 	width: 100%;
 	background-color: #2EB976;
@@ -43,9 +51,9 @@
 }
 .container {
 	width: 90%;
+	min-height: 100vh;
 	background-color: #fff;
 	border-radius: 6px;
-	box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 3%);
 	margin-top: 15px;
 	margin-bottom: 15px;
 	padding: 10px;

@@ -1,5 +1,7 @@
 <template>
 	<view id="app">
+		<!-- 版本更新内容推送 -->
+		<u-alert v-if="isShowAlert"  type = "primary" effect="dark" :show-icon="true" :closable="true" :description = "description"></u-alert>
 		<!-- 轮播图 -->
 		<swiper class="swiper" circular :indicator-dots="true" :autoplay="true" :duration="500" indicator-active-color="#fff">
 			<swiper-item v-for="item in swiper" :key="item.imgUrl">
@@ -11,7 +13,7 @@
 			<view class="list-item" @click="goOrder"><image src="../../static/img/functionList/order.png"></image><text>我的订单</text></view>
 			<view class="list-item" @click="more"><image src="../../static/img/functionList/question.png"></image><text>我的收藏</text></view>
 			<view class="list-item" @click="goRank"><image src="../../static/img/functionList/ranking.png"></image><text>个人排行</text></view>
-			<view class="list-item" @click="goEdit"><image src="../../static/img/functionList/more.png"></image><text>更多功能</text></view>
+			<view class="list-item" @click="goProfile"><image src="../../static/img/functionList/more.png"></image><text>更多功能</text></view>
 		</view>
 		<!-- 刷题分区 -->
 		<view class="questionList">
@@ -30,13 +32,29 @@
 			return {
 				swiper:[],
 				goodsList: [],
-				isShow: false
+				isShow: false,
+				isShowAlert: false,
+				description:'',
+				version: 1.0
 			};
 		},
 		components: {
 			goodsList
 		},
 		onShow() {
+			uniCloud.database().collection('version').get().then(res=>{
+				this.version = res.result.data[0].version
+				this.description = res.result.data[0].content
+				if(!uni.getStorageSync('version')){
+					uni.setStorageSync('version',this.version)
+					this.isShowAlert = true
+				}else{
+					if(uni.getStorageSync('version') < this.version){
+						this.isShowAlert = true
+						uni.setStorageSync('version',this.version)
+					}
+				}
+			})
 			uniCloud.database().collection('swiper').get().then(res=>{
 			    this.swiper = res.result.data
 			})
@@ -56,23 +74,10 @@
 		    
 		},
 		methods: {
-			goEdit() {
-				if(uni.getStorageSync('userInfo')){
-					const userInfo = uni.getStorageSync('userInfo')
-					uniCloud.database().collection('user').where({
-						openid: userInfo.openid
-					}).get().then(res => {
-						if(res.result.data[0].admin){
-							uni.navigateTo({
-								url: '/pages/question-2013/list'
-							});
-						}else{
-							this.more()
-						}
-					})
-				}else{
-					this.more()
-				}
+			goProfile(){
+				uni.navigateTo({
+					url: '/pages/me/me'
+				});
 			},
 			goBase() {
 				if(uni.getStorageSync('userInfo')){
@@ -123,6 +128,9 @@
 					icon:'none',
 					title:'敬请期待'
 				})
+			},
+			__e(){
+				this.isShowAlert = false
 			}
 		}
 	}
@@ -141,6 +149,9 @@
 		background: #2eb976;
 	}
 	#app {
+		.u-alert {
+			z-index: 999;
+		}
 		.swiper {
 			width: 90%;
 			height: 280rpx;
@@ -150,6 +161,7 @@
 			left: 50%;
 			transform: translate(-50%,-50%);
 			border-radius: 18rpx;
+			z-index: 0;
 			swiper-item {
 				border-radius: 18rpx;
 				.swiper-item {

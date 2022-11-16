@@ -85,28 +85,27 @@
 				msgList: [{
 						id: 0,
 						msgs: [{
-
 								id: 31,
 								title: '绪论',
-								content: '题目待更新',
+								content: '已收录7题',
 								url: 'data_xl'
 							},
 							{
 								id: 'f_tab' + Math.round(Math.random() * 1000),
 								title: '线性表',
-								content: '题目待更新',
+								content: '已收录10题',
 								url: 'data_xxb'
 							},
 							{
 								id: 'f_tab' + Math.round(Math.random() * 1000),
 								title: '栈、队列和数组',
-								content: '题目待更新',
+								content: '已收录13题',
 								url: 'data_zdlhsz'
 							},
 							{
 								id: 'f_tab' + Math.round(Math.random() * 1000),
 								title: '树与二叉树',
-								content: '题目待更新',
+								content: '已收录10题',
 								url: 'data_syecs'
 							},
 							{
@@ -306,12 +305,10 @@
 	.content {
 		background-color: #eee;
 	}
-
 	.swiper_item {
 		position: fixed;
 		background-color: #fff;
 	}
-
 	.list_wrapper {
 		position: absolute;
 		top: 0;
@@ -319,7 +316,6 @@
 		left: 0;
 		right: 0;
 	}
-
 	.list_item {
 		/* #ifndef APP-NVUE */
 		display: flex;
@@ -333,7 +329,6 @@
 		border-bottom-color: #eee;
 		border-bottom-width: 2rpx;
 	}
-
 	.img_box {
 		height: 100rpx;
 		width: 100rpx;
@@ -345,12 +340,10 @@
 		border-color: #C0C0C0;
 		margin-right: 20rpx;
 	}
-
 	.img_size {
 		height: 180rpx;
 		width: 180rpx;
 	}
-
 	.item_content {
 		/* #ifndef APP-NVUE */
 		display: flex;
@@ -358,14 +351,12 @@
 		flex-direction: column;
 		justify-content: center;
 	}
-
 	.item_title {
 		color: #333333;
 		font-size: 30rpx;
 		font-weight: bold;
 		margin-bottom: 10rpx;
 	}
-
 	.item_content_size {
 		font-size: 24rpx;
 		color: #999999;

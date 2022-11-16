@@ -42,7 +42,7 @@ exports.main = async (event, context) => {
                 }
             }
 			
-			// 用code获取的openid查user表是否存在该用户
+						// 用code获取的openid查user表是否存在该用户
             const res_user = await user.where({
                 openid: res_session.data.openid
             }).get()
@@ -60,17 +60,26 @@ exports.main = async (event, context) => {
                     result = res
                 })
             } else {
-                const update = await uniCloud.callFunction({
-                    name: 'user',
-                    data: {
-                        action: 'update',
-                        open_id: res_session.data.openid,
-                        _id: res_user.data[0]._id,
-                        user_info: event.user_info
-                    }
-                }).then(res => {
-                    result = res
-                })
+                // const update = await uniCloud.callFunction({
+                //     name: 'user',
+                //     data: {
+                //         action: 'update',
+                //         open_id: res_session.data.openid,
+                //         _id: res_user.data[0]._id,
+                //         user_info: event.user_info
+                //     }
+                // }).then(res => {
+                //     result = res
+                // })
+								await uniCloud.callFunction({
+								    name: 'user',
+								    data: {
+								        action: 'getUser',
+								        open_id: res_session.data.openid
+								    }
+								}).then(res => {
+								    result = res
+								})
             }
             break;
         case 'register':
@@ -78,11 +87,11 @@ exports.main = async (event, context) => {
                 nickName: event.user_info.nickName,
                 avatarUrl: event.user_info.avatarUrl,
                 openid: event.open_id,
-				questionList: [],
-				count: 0,
-				favorite: [],
+								questionList: [],
+								count: 0,
+								favorite: [],
                 register_date: new Date().getTime(),
-				admin: false
+								admin: false
             })
 
             if (res_reg.id) {

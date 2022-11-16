@@ -53,6 +53,24 @@
 		
 		}, 
 		{
+			"path": "pages/me/me",
+			"style": {
+				"navigationStyle":"custom",
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		
+		}, 
+		{
+		    "path" : "pages/version/version",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "版本管理",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
 			"path": "pages/question-2013/add",
 			"style": {
 				"navigationBarTitleText": "题目新增"
@@ -73,11 +91,15 @@
 				"navigationBarTitleText": "题目详情"
 			}
 		}
-	],
+	    
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "考研408刷题",
 		"navigationBarBackgroundColor": "#2eb976",
 		"backgroundColor": "#f3f3f3"
+	},
+	"easycom": {
+			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	}
 }

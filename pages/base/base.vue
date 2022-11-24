@@ -111,19 +111,19 @@
 							{
 								id: 'f_tab' + Math.round(Math.random() * 1000),
 								title: '图',
-								content: '题目待更新',
+								content: '已收录13题',
 								url: 'data_t'
 							},
 							{
 								id: 'f_tab' + Math.round(Math.random() * 1000),
 								title: '查找',
-								content: '题目待更新',
+								content: '已收录7题',
 								url: 'data_cz'
 							},
 							{
 								id: 'f_tab' + Math.round(Math.random() * 1000),
 								title: '排序',
-								content: '题目待更新',
+								content: '已收录13题',
 								url: 'data_px'
 							}
 						]

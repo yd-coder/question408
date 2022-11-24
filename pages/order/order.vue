@@ -144,10 +144,10 @@
 					    this.orderList = res.result.data
 					})
 				}else{
-					uniCloud.database().collection('order').orderBy('time','desc').where({
+					uniCloud.database().collection('order').where({
 						status: current-1,
 						_openid: this.openid
-					}).get().then(res=>{
+					}).orderBy('time','desc').get().then(res=>{
 					    this.orderList = res.result.data
 					})
 				}
@@ -178,34 +178,31 @@
 			},
 			// 订单去支付
 			goPay(item) {
-				wx.cloud.callFunction({
-				  name: 'pay',
-				  data: {
-					outTradeNo: item._id,
-					goodName:item.name,
-				    totalFee:item.totalFee,
-				  },
-				  success: res => {
-				    const payment = res.result.payment
-				    wx.requestPayment({
-				      ...payment,
-				      success (res) {
-						  wx.cloud.callFunction({
-						  	name: 'goodCount',
-						  	data: {
-						  		goodName:item.name,
-						  		count:item.count
-						  	}
-						  })
-				        console.log('pay success', res)
-				      },
-				      fail (err) {
-				        console.error('pay fail', err)
-				      }
-				    })
-				  }
+				uniCloud.callFunction({
+				    name: 'pay',
+				    data: { // 传递订单的一些基本信息
+							openid: item._openid,
+							goodName: item.name, // 商品名称
+							outTradeNo: item._id, // 订单号
+							totalFee: item.totalFee // 单位元
+						}
+				}).then(res => {
+				    uni.requestPayment({ // 调用支付api
+						provider: 'weixin',
+						...res.result.orderInfo,  
+						success: res => {
+							console.log('pay success', res)
+							// 更改订单状态为1
+							uniCloud.database().collection('order').doc(item._id).update({
+							      status: 1
+							})
+						},
+						fail (res) {
+							console.error('pay fail', err)
+						}
+					})
 				})
-			}
+			}	
 		}
 	}
 </script>

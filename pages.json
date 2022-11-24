@@ -43,32 +43,39 @@
 				"enablePullDownRefresh": false
 			}
 
-		}, 
+		},
 		{
 			"path": "pages/base/question",
 			"style": {
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
-		
-		}, 
+
+		},
 		{
 			"path": "pages/me/me",
 			"style": {
-				"navigationStyle":"custom",
+				"navigationStyle": "custom",
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
-		
-		}, 
+
+		},
 		{
-		    "path" : "pages/version/version",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "版本管理",
-		        "enablePullDownRefresh": false
-		    }
-		    
+			"path": "pages/collect/collect",
+			"style": {
+				"navigationBarTitleText": "我的收藏",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/version/version",
+			"style": {
+				"navigationBarTitleText": "版本管理",
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
 			"path": "pages/question-2013/add",
@@ -91,8 +98,7 @@
 				"navigationBarTitleText": "题目详情"
 			}
 		}
-	    
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "考研408刷题",
@@ -100,6 +106,6 @@
 		"backgroundColor": "#f3f3f3"
 	},
 	"easycom": {
-			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	}
 }

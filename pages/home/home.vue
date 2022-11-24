@@ -11,7 +11,7 @@
 		<!-- 功能列表 -->
 		<view class="functionList">
 			<view class="list-item" @click="goOrder"><image src="../../static/img/functionList/order.png"></image><text>我的订单</text></view>
-			<view class="list-item" @click="more"><image src="../../static/img/functionList/question.png"></image><text>我的收藏</text></view>
+			<view class="list-item" @click="goCollect"><image src="../../static/img/functionList/question.png"></image><text>我的收藏</text></view>
 			<view class="list-item" @click="goRank"><image src="../../static/img/functionList/ranking.png"></image><text>个人排行</text></view>
 			<view class="list-item" @click="goProfile"><image src="../../static/img/functionList/more.png"></image><text>更多功能</text></view>
 		</view>
@@ -112,6 +112,17 @@
 					});
 				}
 			},
+			goCollect() {
+				if(uni.getStorageSync('userInfo')){
+					uni.navigateTo({
+						url: '/pages/collect/collect'
+					});
+				}else{
+					uni.navigateTo({
+						url: '/pages/login/login'
+					});
+				}
+			},
 			goRank() {
 				if(uni.getStorageSync('userInfo')){
 					uni.navigateTo({
@@ -122,12 +133,6 @@
 						url: '/pages/login/login'
 					});
 				}
-			},
-			more() {
-				uni.showToast({
-					icon:'none',
-					title:'敬请期待'
-				})
 			},
 			__e(){
 				this.isShowAlert = false

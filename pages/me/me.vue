@@ -28,7 +28,7 @@
 	    <view class="user-detail">
 	        <view class="type">
 	            <view class="type-name">收藏题数</view>
-	            <view class="type-num">0</view>
+	            <view class="type-num">{{collectCount}}</view>
 	        </view>
 	        <view class="type">
 	            <view class="type-name">刷题数量</view>
@@ -116,6 +116,7 @@
 		data() {
 			return {
 				userInfo: null,
+				collectCount: 0,
 				questionCount: 0,
 				avatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
 				nickName: '',
@@ -139,6 +140,14 @@
 				}else{
 					return;
 				}
+			},
+			// 获取用户收藏题数
+			getCollectCount(){
+				uniCloud.database().collection('user').where({
+					openid: this.userInfo.openid
+				}).get().then(res => {
+					this.collectCount = res.result.data[0].favorite.length
+				})
 			},
 			// 获取用户刷题数量
 			getQuestionCount(){
@@ -231,6 +240,7 @@
 		onShow() {
 			if(uni.getStorageSync('userInfo')){
 				this.userInfo = JSON.parse(uni.getStorageSync('userInfo'))
+				this.getCollectCount()
 				this.getQuestionCount()
 				uniCloud.database().collection('user').where({
 					openid: this.userInfo.openid

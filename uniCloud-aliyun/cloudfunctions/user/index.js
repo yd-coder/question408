@@ -1,7 +1,7 @@
 'use strict';
 const mp_wx_data = {
-    AppID: 'wxd1cf59668e07a107',
-    AppSecret: '5b52ea7d3625f779a8cdddcba4f6c06f'
+    AppID: '',
+    AppSecret: ''
 }
 
 exports.main = async (event, context) => {

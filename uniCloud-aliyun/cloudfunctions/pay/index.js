@@ -2,9 +2,9 @@
 const unipay = require('uni-pay')
 exports.main = async (event, context) => {
 	const unipayIns = unipay.initWeixin({
-	   appId: 'wxd1cf59668e07a107', //小程序appid
-	   mchId: '1627071107', //微信商户号
-	   key: 'a91ed6b66e850bfa544a9e7b5ba4c1b3', //商户号的API密钥
+	   appId: '', //小程序appid
+	   mchId: '', //微信商户号
+	   key: '', //商户号的API密钥
 	   //pfx: fs.readFileSync('/path/to/your/pfxfile'), // p12文件路径，使用微信退款时需要，需要注意的是阿里云目前不支持以相对路径读取文件，请使用绝对路径的形式
 	})
    //event为客户端上传的参数
